@@ -19,7 +19,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     with conn:
         conn.sendall(resolution.encode())
         def on_move(x, y):
-            content = f'{MouseAction.MOVE} {x} {y}'
+            content = f'{MouseAction.MOVE} {x} {y}\n'
             conn.sendall(content.encode())
             print('Pointer moved to {0}'.format(
                 (x, y)))
@@ -28,11 +28,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print('{0} at {1}'.format(
                 'Pressed' if pressed else 'Released',
                 (x, y)))
-            content = f'{MouseAction.CLICK} {x} {y} {button} {pressed}'
+            content = f'{MouseAction.CLICK} {x} {y} {button} {pressed}\n'
             conn.sendall(content.encode())
 
         def on_scroll(x, y, dx, dy):
-            content = f'{MouseAction.SCROLL} {x} {y} {dx} {dy}'
+            content = f'{MouseAction.SCROLL} {x} {y} {dx} {dy}\n'
             conn.sendall(content.encode())
             print('Scrolled {0} at {1}'.format(
                 'down' if dy < 0 else 'up',
